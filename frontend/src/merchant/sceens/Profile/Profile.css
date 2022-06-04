@@ -1,0 +1,29 @@
+.profile-container {
+  position: center;
+  padding-top: 20px;
+  padding-left: 100px;
+  padding-right: 100px;
+  margin-bottom: 50px;
+}
+
+.profile-nav {
+  position: center;
+  padding-top: 20px;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+.profile-nav-contents {
+  font-size: 16px;
+  font-weight: normal;
+}
+.profile-nav-contents-onselect {
+  font-size: 16px;
+  font-weight: bold;
+}
+.profile-error {
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: red;
+}
