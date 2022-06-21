@@ -71,6 +71,7 @@ public class RestaurantController {
         m.put("city", r.getCity());
         m.put("state", r.getState());
         m.put("zipcode", r.getZipcode());
+        m.put("image", r.getImage());
 //        m.put("id", u.getId());
         return m;
     }
@@ -88,6 +89,18 @@ public class RestaurantController {
         r.setCity(info.get("city"));
         r.setState(info.get("state"));
         r.setZipcode(info.get("zipcode"));
+        rr.save(r);
+    }
+    @RequestMapping(method = RequestMethod.POST, value = "/api/restaurant/uploadimage")
+    public void uploadImage(@RequestBody Map<String, String> info)
+    {
+
+        System.out.println("info:   " + info);
+        String id = info.get("id");
+        Restaurant r = rr.getById(Integer.parseInt(id));
+        System.out.println("r:  " + r);
+        r.setImage(info.get("image"));
+
         rr.save(r);
     }
 

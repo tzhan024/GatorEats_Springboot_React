@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AddFood.css";
 import axios from "axios";
 import google from "../../../img/google.png";
 import AuthedMerchantNavBar from "../../components/NavBar/AuthedMerchantNavBar";
 import food from "../../../img/food.png";
+import S3 from "react-aws-s3";
+import s3Config from "../../../s3Config";
 
 export default function MerchantSignUp() {
   const [typing, setTyping] = useState("");
@@ -18,6 +20,13 @@ export default function MerchantSignUp() {
 
   const [value, setValue] = useState("");
   const [count, setCount] = useState(-1);
+  const [tempImage, setTempImage] = useState("");
+  const [tempFile, setTempFile] = useState("");
+  const fileUpload = useRef(null);
+
+  window.Buffer = window.Buffer || require("buffer").Buffer;
+
+  const ReactS3Client = new S3(s3Config);
 
   useEffect(() => {
     setCount(count + 1);
@@ -31,25 +40,60 @@ export default function MerchantSignUp() {
   }, [value]);
   const onChange = ({ target }) => setValue(target.value);
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   if (name !== "" && price !== "") {
+  //     axios
+  //       .post("http://localhost:8080/api/menu/addfood", {
+  //         restaurant: window.localStorage.getItem("id"),
+  //         name: name,
+  //         price: price,
+  //         image: image,
+  //       })
+  //       .then((res) => {
+  //         // const token = res.data;
+  //         // this.props.setToken(token);
+  //         // this.setState({loggedIn: true});
+  //         console.log(res);
+  //         navigate("/merchant/menu");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else {
+  //     setMessage("please check your inputs");
+  //   }
+  // };
+  const handleSubmit = async (e) => {
     if (name !== "" && price !== "") {
-      axios
-        .post("http://localhost:8080/api/menu/addfood", {
-          restaurant: window.localStorage.getItem("id"),
-          name: name,
-          price: price,
-          image: image,
+      ReactS3Client.uploadFile(tempFile, tempFile.name)
+        .then((data) => {
+          console.log("data: " + data.location);
+          console.log(
+            "data: " +
+              data.location.split("/")[data.location.split("/").length - 1]
+          );
+          console.log("data 0: " + data[0]);
+          console.log("data 1: " + data[1]);
+          // setImage(data.location);
+          axios
+            .post("http://localhost:8080/api/menu/addfood", {
+              restaurant: window.localStorage.getItem("id"),
+              name: name,
+              price: price,
+              image: data.location,
+            })
+            .then((res) => {
+              // const token = res.data;
+              // this.props.setToken(token);
+              // this.setState({loggedIn: true});
+              console.log(res);
+              navigate("/merchant/menu");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
-        .then((res) => {
-          // const token = res.data;
-          // this.props.setToken(token);
-          // this.setState({loggedIn: true});
-          console.log(res);
-          navigate("/merchant/menu");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => console.error(err));
     } else {
       setMessage("please check your inputs");
     }
@@ -71,21 +115,34 @@ export default function MerchantSignUp() {
           {/* <img className="addfood-image-onmouse" src={food} alt="food"></img> */}
           <div
             className="addfood-image"
-            onClick={() => alert("changing image")}
+            // onClick={() => alert("changing image")}
             onMouseEnter={() => setMouse("image")}
             onMouseLeave={() => setMouse("")}
             style={{
-              backgroundImage: `url("${food}")`,
+              backgroundImage: `url("${tempImage === "" ? food : tempImage}")`,
               backgroundSize: "cover",
             }}
           >
             {mouse === "image" && (
-              <div className="addfood-image-onmouse">
+              <div
+                className="addfood-image-onmouse"
+                onClick={() => fileUpload.current.click()}
+              >
                 <span className="addfood-restaurant-image-title">
                   Click to Change image
                 </span>
               </div>
             )}
+            <input
+              type="file"
+              style={{ display: "none" }}
+              ref={fileUpload}
+              onChange={async (e) => {
+                setTempImage(URL.createObjectURL(e.target.files[0]));
+                setTempFile(e.target.files[0]);
+                console.log(e.target.files[0]);
+              }}
+            ></input>
           </div>
         </div>
         <div className="addfood-inputs">

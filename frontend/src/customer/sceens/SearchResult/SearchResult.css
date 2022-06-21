@@ -44,6 +44,8 @@
 }
 .restaurant-results-image {
   width: 180px;
+  height: 180px;
+  border-radius: 10px;
 }
 .restaurant-results-name {
   margin-top: 10px;

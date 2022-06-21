@@ -8,14 +8,15 @@
   /* background-color: red; */
 }
 .addfood-image {
-  width: 250px;
-  height: 250px;
+  width: 230px;
+  height: 230px;
   margin-right: 20px;
+  border-radius: 10px;
 }
 .addfood-image-onmouse {
-  width: 250px;
-  height: 250px;
-  background-color: rgb(0, 0, 0, 50%);
+  width: 230px;
+  height: 230px;
+  background-color: rgb(0, 0, 0, 20%);
   border-radius: 10px;
   margin-right: 20px;
   display: flex;

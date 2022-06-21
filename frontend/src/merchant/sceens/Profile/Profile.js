@@ -1,15 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthedMerchantNavBar from "../../components/NavBar/AuthedMerchantNavBar";
 import { Button, Col, Form, Nav, Row, Modal } from "react-bootstrap";
 import "./Profile.css";
 import axios from "axios";
 import restaurant from "../../../img/restaurant.png";
+import S3 from "react-aws-s3";
+import s3Config from "../../../s3Config";
+
+// import AWS from "aws-sdk";
 
 export default function Profile() {
   const navigate = useNavigate();
   const [count, setCount] = useState(-1);
   const [value, setValue] = useState("");
+
+  const [mouse, setMouse] = useState("");
 
   const [email, setEmail] = useState("");
   const [emailDialog, setEmailDialog] = useState(false);
@@ -20,6 +26,8 @@ export default function Profile() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipcode, setZipcode] = useState("");
+  const [image, setImage] = useState("");
+  const imageName = image.split("/");
   // const [id, setId] = useState("");
 
   const [oldPassword, setOldPassword] = useState("");
@@ -30,6 +38,75 @@ export default function Profile() {
   const [passwordError, setPasswordError] = useState("");
 
   const [tab, setTab] = useState("profile");
+  const fileUpload = useRef(null);
+
+  window.Buffer = window.Buffer || require("buffer").Buffer;
+
+  const ReactS3Client = new S3(s3Config);
+
+  const handleUpload = async (e) => {
+    e.preventDefault();
+    console.log(e.target.files[0]);
+    console.log(e.target.files[0].name);
+    console.log(fileUpload.current.files[0]);
+    console.log(fileUpload.current.files[0].name);
+    console.log(imageName[imageName.length - 1]);
+    if (image !== "") {
+      ReactS3Client.deleteFile(imageName[imageName.length - 1])
+        .then((data) => {
+          console.log(data.message);
+          ReactS3Client.uploadFile(e.target.files[0], e.target.files[0].name)
+            .then((data) => {
+              console.log("data: " + data.location);
+              console.log(
+                "data: " +
+                  data.location.split("/")[data.location.split("/").length - 1]
+              );
+              console.log("data 0: " + data[0]);
+              console.log("data 1: " + data[1]);
+              axios
+                .post("http://127.0.0.1:8080/api/restaurant/uploadimage", {
+                  image: data.location,
+                  id: window.localStorage.getItem("id"),
+                })
+                .then((res) => {
+                  console.log(res.data);
+                  window.location.reload(false);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            })
+            .catch((err) => console.error(err));
+        })
+        .catch((err) => console.error(err));
+    } else {
+      ReactS3Client.uploadFile(e.target.files[0], e.target.files[0].name)
+        .then((data) => {
+          console.log("data: " + data.location);
+          console.log(
+            "data: " +
+              data.location.split("/")[data.location.split("/").length - 1]
+          );
+          console.log("data 0: " + data[0]);
+          console.log("data 1: " + data[1]);
+          axios
+            .post("http://127.0.0.1:8080/api/restaurant/uploadimage", {
+              image: data.location,
+              id: window.localStorage.getItem("id"),
+            })
+            .then((res) => {
+              console.log(res.data);
+              window.location.reload(false);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => console.error(err));
+    }
+    // window.location.reload(false);
+  };
 
   useEffect(() => {
     setCount(count + 1);
@@ -50,6 +127,7 @@ export default function Profile() {
         setCity(res.data.city);
         setState(res.data.state);
         setZipcode(res.data.zipcode);
+        setImage(res.data.image);
         // setId(window.localStorage.getItem("id"));
       })
       .catch((err) => {
@@ -172,11 +250,33 @@ export default function Profile() {
       ></div>
       <div className="restaurant-menu">
         <div className="restaurant-menu-title">
-          <img
-            className="restaurant-menu-icon"
-            src={restaurant}
-            alt="restaurant"
-          ></img>
+          <div
+            className="profile-icon"
+            onMouseEnter={() => setMouse("image")}
+            onMouseLeave={() => setMouse("")}
+            // src={restaurant}
+            style={{
+              backgroundImage: `url("${image === "" ? restaurant : image}")`,
+              backgroundSize: "cover",
+            }}
+          >
+            {mouse === "image" && (
+              <div
+                className="profile-icon-onmouse"
+                onClick={() => fileUpload.current.click()}
+              ></div>
+            )}
+            <input
+              type="file"
+              style={{ display: "none" }}
+              ref={fileUpload}
+              onChange={handleUpload}
+            >
+              {/* <span className="profile-icon-title">
+                    Click to Change image
+                    </span> */}
+            </input>
+          </div>
         </div>
         {/* <div className="restaurant-menu-line"></div> */}
       </div>

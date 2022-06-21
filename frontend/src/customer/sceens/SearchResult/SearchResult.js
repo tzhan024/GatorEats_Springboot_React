@@ -65,11 +65,17 @@ export default function RestaurantResults() {
               })
             }
           >
-            <img
+            <div
               className="restaurant-results-image"
-              src={restaurant}
+              // src={resData[i].image === "" ? restaurant : resData[i].image}
+              style={{
+                backgroundImage: `url("${
+                  resData[i].image === "" ? restaurant : resData[i].image
+                }")`,
+                backgroundSize: "cover",
+              }}
               alt="restaurant"
-            ></img>
+            ></div>
             <span className="restaurant-results-name">{resData[i].name}</span>
           </div>
         )}
@@ -82,11 +88,21 @@ export default function RestaurantResults() {
               })
             }
           >
-            <img
+            <div
               className="restaurant-results-image"
-              src={restaurant}
+              // src={
+              //   resData[i + 1].image === "" ? restaurant : resData[i + 1].image
+              // }
+              style={{
+                backgroundImage: `url("${
+                  resData[i + 1].image === ""
+                    ? restaurant
+                    : resData[i + 1].image
+                }")`,
+                backgroundSize: "cover",
+              }}
               alt="restaurant"
-            ></img>
+            ></div>
             <span className="restaurant-results-name">
               {resData[i + 1].name}
             </span>
@@ -101,11 +117,21 @@ export default function RestaurantResults() {
               })
             }
           >
-            <img
+            <div
               className="restaurant-results-image"
-              src={restaurant}
+              // src={
+              //   resData[i + 2].image === "" ? restaurant : resData[i + 2].image
+              // }
+              style={{
+                backgroundImage: `url("${
+                  resData[i + 2].image === ""
+                    ? restaurant
+                    : resData[i + 2].image
+                }")`,
+                backgroundSize: "cover",
+              }}
               alt="restaurant"
-            ></img>
+            ></div>
             <span className="restaurant-results-name">
               {resData[i + 2].name}
             </span>
@@ -120,11 +146,21 @@ export default function RestaurantResults() {
               })
             }
           >
-            <img
+            <div
               className="restaurant-results-image"
-              src={restaurant}
+              // src={
+              //   resData[i + 3].image === "" ? restaurant : resData[i + 3].image
+              // }
+              style={{
+                backgroundImage: `url("${
+                  resData[i + 3].image === ""
+                    ? restaurant
+                    : resData[i + 3].image
+                }")`,
+                backgroundSize: "cover",
+              }}
               alt="restaurant"
-            ></img>
+            ></div>
             <span className="restaurant-results-name">
               {resData[i + 3].name}
             </span>

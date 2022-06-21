@@ -64,7 +64,15 @@ export default function Cart(props) {
     rows.push(
       <div className="cart-block-content-0">
         <div className="cart-block-content-1">
-          <img className="cart-image" src={food} alt="food"></img>
+          <div
+            className="cart-image"
+            style={{
+              backgroundImage: `url("${
+                data[i].image === "" ? food : data[i].image
+              }")`,
+              backgroundSize: "cover",
+            }}
+          ></div>
           <div className="cart-food-detail">
             <span className="cart-name">{data[i].name}</span>
             <span className="cart-price">$ {data[i].price}</span>

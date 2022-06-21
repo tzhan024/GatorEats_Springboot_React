@@ -75,7 +75,15 @@ export default function MerchantMenu(props) {
       <div className="restaurant-menu-block">
         {i < data.length && (
           <div className="restaurant-menu-block-content">
-            <img className="restaurant-menu-image" src={food} alt="food"></img>
+            <div
+              className="restaurant-menu-image"
+              style={{
+                backgroundImage: `url("${
+                  data[i].image === "" ? food : data[i].image
+                }")`,
+                backgroundSize: "cover",
+              }}
+            ></div>
             <div className="restaurant-menu-food-detail">
               <span className="restaurant-menu-name">{data[i].name}</span>
               <span className="restaurant-menu-price">$ {data[i].price}</span>
@@ -98,7 +106,15 @@ export default function MerchantMenu(props) {
         )}
         {i + 1 < data.length && (
           <div className="restaurant-menu-block-content">
-            <img className="restaurant-menu-image" src={food} alt="food"></img>
+            <div
+              className="restaurant-menu-image"
+              style={{
+                backgroundImage: `url("${
+                  data[i + 1].image === "" ? food : data[i + 1].image
+                }")`,
+                backgroundSize: "cover",
+              }}
+            ></div>
             <div className="restaurant-menu-food-detail">
               <span className="restaurant-menu-name">{data[i + 1].name}</span>
               <span className="restaurant-menu-price">
@@ -123,7 +139,15 @@ export default function MerchantMenu(props) {
         )}
         {i + 2 < data.length && (
           <div className="restaurant-menu-block-content">
-            <img className="restaurant-menu-image" src={food} alt="food"></img>
+            <div
+              className="restaurant-menu-image"
+              style={{
+                backgroundImage: `url("${
+                  data[i + 2].image === "" ? food : data[i + 2].image
+                }")`,
+                backgroundSize: "cover",
+              }}
+            ></div>
             <div className="restaurant-menu-food-detail">
               <span className="restaurant-menu-name">{data[i + 2].name}</span>
               <span className="restaurant-menu-price">
@@ -164,11 +188,14 @@ export default function MerchantMenu(props) {
         ></div>
         <div className="restaurant-menu-title">
           <div className="restaurant-menu-title-1">
-            <img
-              className="restaurant-menu-icon"
-              src={restaurant}
-              alt="restaurant"
-            ></img>
+            <div
+              className="profile-icon"
+              // src={restaurant}
+              style={{
+                backgroundImage: `url("${image === "" ? restaurant : image}")`,
+                backgroundSize: "cover",
+              }}
+            ></div>
             <span className="restaurant-menu-title-content">{name}</span>
           </div>
           <div className="restaurant-menu-title-2">
