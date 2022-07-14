@@ -1,0 +1,148 @@
+.addpayment {
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* background-color: red; */
+}
+.addpayment-title {
+  margin-top: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: black;
+}
+.addpayment-block {
+  display: flex;
+
+  flex-direction: column;
+  /* background-color: blue; */
+}
+.addpayment-short {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  /* background-color: red; */
+
+  width: 400px;
+}
+.addpayment-content-title {
+  margin-top: 10px;
+  margin-left: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+}
+.addpayment-input-block {
+  margin-top: 10px;
+  height: 40px;
+  width: 400px;
+  background-color: rgb(0, 0, 0, 5%);
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(0, 0, 0, 0%);
+}
+.addpayment-input-block-ontyping {
+  margin-top: 10px;
+  height: 40px;
+  width: 400px;
+  background-color: rgb(0, 0, 0, 5%);
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(0, 0, 0, 100%);
+}
+.addpayment-short-input-block {
+  margin-top: 10px;
+  height: 40px;
+  width: 190px;
+  background-color: rgb(0, 0, 0, 5%);
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(0, 0, 0, 0%);
+}
+.addpayment-short-input-block-ontyping {
+  margin-top: 10px;
+  height: 40px;
+  width: 190px;
+  background-color: rgb(0, 0, 0, 5%);
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(0, 0, 0, 100%);
+}
+.addpayment-input {
+  outline: none;
+  border: none;
+  margin-left: 15px;
+  width: 360px;
+  height: 38px;
+  font-size: 16px;
+  font-weight: 400;
+  color: black;
+  background-color: rgb(0, 0, 0, 0%);
+}
+.addpayment-short-input {
+  outline: none;
+  border: none;
+  margin-left: 15px;
+  width: 150px;
+  height: 38px;
+  font-size: 16px;
+  font-weight: 400;
+  color: black;
+  background-color: rgb(0, 0, 0, 0%);
+}
+.addpayment-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  width: 350px;
+  height: 40px;
+  border-radius: 25px;
+
+  background-color: rgb(0, 0, 0, 100%);
+}
+.addpayment-button-onmouse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  width: 350px;
+  height: 40px;
+  border-radius: 25px;
+
+  background-color: rgb(0, 0, 0, 75%);
+}
+.addpayment-button-content {
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+.addpayment-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  width: 350px;
+  height: 40px;
+  border-radius: 25px;
+
+  background-color: rgba(255, 0, 0, 0.8);
+}
+.addpayment-delete-onmouse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  width: 350px;
+  height: 40px;
+  border-radius: 25px;
+
+  background-color: #da7c67;
+}

@@ -28,6 +28,8 @@ export default function Cart(props) {
           user: window.localStorage.getItem("id"),
         })
         .then((res) => {
+          console.log(state.id);
+          console.log(window.localStorage.getItem("id"));
           console.log(res.data);
           setData(res.data.data);
           setQty(res.data.qty);
@@ -198,11 +200,11 @@ export default function Cart(props) {
               style={{ justifySelf: "flex-end" }}
               onMouseEnter={() => setMouse("checkout")}
               onMouseLeave={() => setMouse("")}
-              // onClick={() =>
-              //   navigate(`/user/shoppingcart/${name}`, {
-              //     state: { id: state.id },
-              //   })
-              // }
+              onClick={() =>
+                navigate(`/user/checkout/${params.restaurant}`, {
+                  state: { id: state.id, price: Number(total).toFixed(2) },
+                })
+              }
             >
               <span className="cart-checkout-button-content">
                 Process to checkout

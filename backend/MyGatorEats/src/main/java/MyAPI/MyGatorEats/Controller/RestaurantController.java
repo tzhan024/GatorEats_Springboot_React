@@ -152,4 +152,14 @@ public class RestaurantController {
 
         return rr.findByZipcode(zipcode);
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/api/restaurant/all")
+    public List<Restaurant> searcAll()
+    {
+//        Map<String, Object> m = new HashMap<>();
+
+//        System.out.println(zipcode);
+
+        return rr.findAll();
+    }
 }

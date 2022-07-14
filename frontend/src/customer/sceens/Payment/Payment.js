@@ -1,69 +1,323 @@
-import React, { useState } from "react";
-import Cleave from "cleave.js/react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import "./Payment.css";
+import axios from "axios";
 import AuthedNavBar from "../../components/NavBar/AuthedNavBar";
+import food from "../../../img/food.png";
+import restaurant from "../../../img/restaurant.png";
+import payment from "../../../img/payment.png";
+import edit from "../../../img/edit.png";
+import plus from "../../../img/plus.png";
 
-const imageUrls = [
-  "https://logos-world.net/wp-content/uploads/2020/04/Visa-Logo.png",
-  "https://brand.mastercard.com/content/dam/mccom/brandcenter/thumbnails/mastercard_vrt_rev_92px_2x.png",
-  "https://www.discover.com/company/images/newsroom/media-downloads/discover.png",
-  "https://s1.q4cdn.com/692158879/files/design/svg/american-express-logo.svg",
-  "https://cdn4.iconfinder.com/data/icons/simple-peyment-methods/512/diners_club-512.png",
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/JCB_logo.svg/1280px-JCB_logo.svg.png",
-];
+export default function MerchantMenu(props) {
+  const navigate = useNavigate();
+  const params = useParams();
+  const [mouse, setMouse] = useState("");
+  const [data, setData] = useState([]);
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
 
-export default function Payment() {
-  const [creditCardNum, setCreditCardNum] = useState("#### #### #### ####");
-  const [cardType, setCardType] = useState("");
-  const [cardHolder, setCardHolder] = useState("Your Full Name");
-  const [expireMonth, setExpireMonth] = useState("MM");
-  const [expireYear, setExpireYear] = useState("YYYY");
-  const [cardTypeUrl, setCardTypeUrl] = useState(
-    "https://logos-world.net/wp-content/uploads/2020/04/Visa-Logo.png"
+  const [value, setValue] = useState("");
+  const [count, setCount] = useState(-1);
+  useEffect(
+    (props) => {
+      setCount(count + 1);
+      axios
+        .get(
+          `http://127.0.0.1:8080/api/payment/getpayment/${window.localStorage.getItem(
+            "id"
+          )}`
+        )
+        .then((res) => {
+          console.log(res.data);
+          setData(res.data);
+        })
+        .catch((err) => {
+          console.log("error: " + localStorage.getItem("id"));
+          console.log(err);
+        });
+    },
+    [value]
   );
-  // const [flip, setFlip] = useState(null);
+  const onChange = ({ target }) => setValue(target.value);
 
-  const handleNum = (e) => {
-    setCreditCardNum(e.target.rawValue);
-    // console.log(e.target.value);
-  };
+  // const data = [
+  //   {
+  //     name: "burger",
+  //     price: 2.99,
+  //   },
+  //   {
+  //     name: "fries",
+  //     price: 1.99,
+  //   },
+  //   {
+  //     name: "chicken tenders",
+  //     price: 3.99,
+  //   },
+  //   {
+  //     name: "soft drink",
+  //     price: 1.59,
+  //   },
+  //   {
+  //     name: "ice cream",
+  //     price: 0.99,
+  //   },
+  //   {
+  //     name: "hot wings",
+  //     price: 7.99,
+  //   },
+  //   {
+  //     name: "salmon sushi",
+  //     price: 6.99,
+  //   },
+  // ];
+  var rows = [];
+  if (data !== undefined) {
+    for (let i = -1; i < data.length; i += 3) {
+      if (i < 0) {
+        rows.push(
+          <div className="payment-block">
+            {i < 0 && (
+              <div
+                className={
+                  mouse === "payment"
+                    ? "payment-add-block-content-onmouse"
+                    : "payment-add-block-content"
+                }
+                onMouseEnter={() => setMouse("payment")}
+                onMouseLeave={() => setMouse("")}
+                onClick={() => {
+                  navigate(`/user/addpayment`);
+                }}
+              >
+                <img
+                  className="payment-block-add-logo"
+                  src={plus}
+                  alt="plus"
+                ></img>
+              </div>
+            )}
 
-  const handleType = (type) => {
-    setCardType(type);
-    console.log(type);
-
-    if (type === "visa") {
-      setCardTypeUrl(imageUrls[0]);
-      console.log("Visa");
-    } else if (type === "mastercard") {
-      setCardTypeUrl(imageUrls[1]);
-      console.log("Mastercard");
-    } else if (type === "discover") {
-      setCardTypeUrl(imageUrls[2]);
-      console.log("Discover");
-    } else if (type === "amex") {
-      setCardTypeUrl(imageUrls[3]);
-      console.log("Amex");
-    } else if (type === "diners") {
-      console.log("Diners");
-      setCardTypeUrl(imageUrls[4]);
-    } else if (type === "jcb") {
-      console.log("JCB");
-      setCardTypeUrl(imageUrls[5]);
+            {i + 1 < data.length && (
+              <div className="payment-block-content">
+                <div className="payment-block-logo">
+                  <div className="payment-block-left">
+                    <img
+                      className="payment-block-left-logo"
+                      src={payment}
+                    ></img>
+                  </div>
+                  <div className="payment-block-right">
+                    <div
+                      className={
+                        mouse === i + 1
+                          ? "payment-block-right-logo-bg-onmouse"
+                          : "payment-block-right-logo-bg"
+                      }
+                      onMouseEnter={() => setMouse(i + 1)}
+                      onMouseLeave={() => setMouse("")}
+                      onClick={() => {
+                        navigate(`/user/editpayment/${data[i + 1].id}`);
+                      }}
+                    >
+                      <img
+                        className="payment-block-right-logo"
+                        src={edit}
+                      ></img>
+                    </div>
+                  </div>
+                </div>
+                {/* <img src={payment}></img> */}
+                <div className="payment-info">
+                  <span className="payment-info-detail">
+                    {data[i + 1].number}
+                  </span>
+                  <span className="payment-info-detail">
+                    {data[i + 1].expdate}
+                  </span>
+                  <span className="payment-info-detail">
+                    {data[i + 1].name}
+                  </span>
+                </div>
+              </div>
+            )}
+            {i + 2 < data.length && (
+              <div className="payment-block-content">
+                <div className="payment-block-logo">
+                  <div className="payment-block-left">
+                    <img
+                      className="payment-block-left-logo"
+                      src={payment}
+                    ></img>
+                  </div>
+                  <div className="payment-block-right">
+                    <div
+                      className={
+                        mouse === i + 2
+                          ? "payment-block-right-logo-bg-onmouse"
+                          : "payment-block-right-logo-bg"
+                      }
+                      onMouseEnter={() => setMouse(i + 2)}
+                      onMouseLeave={() => setMouse("")}
+                      onClick={() => {
+                        navigate(`/user/editpayment/${data[i + 2].id}`);
+                      }}
+                    >
+                      <img
+                        className="payment-block-right-logo"
+                        src={edit}
+                      ></img>
+                    </div>
+                  </div>
+                </div>
+                {/* <img src={payment}></img> */}
+                <div className="payment-info">
+                  <span className="payment-info-detail">
+                    {data[i + 2].number}
+                  </span>
+                  <span className="payment-info-detail">
+                    {data[i + 2].expdate}
+                  </span>
+                  <span className="payment-info-detail">
+                    {data[i + 2].name}
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      } else {
+        rows.push(
+          <div className="payment-block">
+            {i < data.length && (
+              <div className="payment-block-content">
+                <div className="payment-block-logo">
+                  <div className="payment-block-left">
+                    <img
+                      className="payment-block-left-logo"
+                      src={payment}
+                    ></img>
+                  </div>
+                  <div className="payment-block-right">
+                    <div
+                      className={
+                        mouse === i
+                          ? "payment-block-right-logo-bg-onmouse"
+                          : "payment-block-right-logo-bg"
+                      }
+                      onMouseEnter={() => setMouse(i)}
+                      onMouseLeave={() => setMouse("")}
+                      onClick={() => {
+                        navigate(`/user/editpayment/${data[i].id}`);
+                      }}
+                    >
+                      <img
+                        className="payment-block-right-logo"
+                        src={edit}
+                      ></img>
+                    </div>
+                  </div>
+                </div>
+                {/* <img src={payment}></img> */}
+                <div className="payment-info">
+                  <span className="payment-info-detail">{data[i].number}</span>
+                  <span className="payment-info-detail">{data[i].expdate}</span>
+                  <span className="payment-info-detail">{data[i].name}</span>
+                </div>
+              </div>
+            )}
+            {i + 1 < data.length && (
+              <div className="payment-block-content">
+                <div className="payment-block-logo">
+                  <div className="payment-block-left">
+                    <img
+                      className="payment-block-left-logo"
+                      src={payment}
+                    ></img>
+                  </div>
+                  <div className="payment-block-right">
+                    <div
+                      className={
+                        mouse === i + 1
+                          ? "payment-block-right-logo-bg-onmouse"
+                          : "payment-block-right-logo-bg"
+                      }
+                      onMouseEnter={() => setMouse(i + 1)}
+                      onMouseLeave={() => setMouse("")}
+                      onClick={() => {
+                        navigate(`/user/editpayment/${data[i + 1].id}`);
+                      }}
+                    >
+                      <img
+                        className="payment-block-right-logo"
+                        src={edit}
+                      ></img>
+                    </div>
+                  </div>
+                </div>
+                {/* <img src={payment}></img> */}
+                <div className="payment-info">
+                  <span className="payment-info-detail">
+                    {data[i + 1].number}
+                  </span>
+                  <span className="payment-info-detail">
+                    {data[i + 1].expdate}
+                  </span>
+                  <span className="payment-info-detail">
+                    {data[i + 1].name}
+                  </span>
+                </div>
+              </div>
+            )}
+            {i + 2 < data.length && (
+              <div className="payment-block-content">
+                <div className="payment-block-logo">
+                  <div className="payment-block-left">
+                    <img
+                      className="payment-block-left-logo"
+                      src={payment}
+                    ></img>
+                  </div>
+                  <div className="payment-block-right">
+                    <div
+                      className={
+                        mouse === i + 2
+                          ? "payment-block-right-logo-bg-onmouse"
+                          : "payment-block-right-logo-bg"
+                      }
+                      onMouseEnter={() => setMouse(i + 2)}
+                      onMouseLeave={() => setMouse("")}
+                      onClick={() => {
+                        navigate(`/user//editpayment/${data[i + 2].id}`);
+                      }}
+                    >
+                      <img
+                        className="payment-block-right-logo"
+                        src={edit}
+                      ></img>
+                    </div>
+                  </div>
+                </div>
+                {/* <img src={payment}></img> */}
+                <div className="payment-info">
+                  <span className="payment-info-detail">
+                    {data[i + 2].number}
+                  </span>
+                  <span className="payment-info-detail">
+                    {data[i + 2].expdate}
+                  </span>
+                  <span className="payment-info-detail">
+                    {data[i + 2].name}
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      }
     }
-  };
+  }
 
-  const handleCardHolder = (e) => {
-    setCardHolder(e.target.value);
-  };
-
-  const handleExpMonth = (e) => {
-    setExpireMonth(e.target.value);
-  };
-
-  const handleExpYear = (e) => {
-    setExpireYear(e.target.value);
-  };
   return (
     <div>
       <AuthedNavBar />
@@ -74,96 +328,10 @@ export default function Payment() {
           backgroundColor: "rgb(0, 0, 0, 10%)",
         }}
       ></div>
-      <div className="payment-container">
-        <form id="form">
-          <div id="card">
-            <div className="header">
-              <div className="sticker"></div>
-              <div>
-                <img className="logo" src={cardTypeUrl} alt="Card logo" />
-              </div>
-            </div>
-            <div className="body">
-              <h2 id="creditCardNumber">{creditCardNum}</h2>
-            </div>
-            <div className="footer">
-              <div>
-                <h5>Card Holder</h5>
-                <h3>{cardHolder}</h3>
-              </div>
-              <div>
-                <h5>Expires</h5>
-                <h3>
-                  {expireMonth} / {expireYear}
-                </h3>
-              </div>
-            </div>
-          </div>
-
-          <div className="input-container mt">
-            <h4>Enter card number</h4>
-            <Cleave
-              delimiter="-"
-              options={{
-                creditCard: true,
-                onCreditCardTypeChanged: handleType,
-              }}
-              onChange={handleNum}
-              placeholder="Please enter your credit card number"
-            />
-          </div>
-
-          <div className="input-container">
-            <h4>Card Holder</h4>
-            <input
-              onChange={handleCardHolder}
-              type="text"
-              placeholder="Please enter your full name"
-              required
-            />
-          </div>
-
-          <div className="input-grp">
-            <div className="input-container">
-              <h4>Expiration Year</h4>
-              <select value={expireYear} onChange={handleExpYear}>
-                <option value="January">January</option>
-                <option value="February">February</option>
-                <option value="March">March</option>
-                <option value="April">April</option>
-                <option value="May">May</option>
-                <option value="June">June</option>
-                <option value="July">July</option>
-                <option value="August">August</option>
-                <option value="September">September</option>
-                <option value="October">October</option>
-                <option value="November">November</option>
-                <option value="December">December</option>
-              </select>
-            </div>
-            <div className="input-container">
-              <h4>Month</h4>
-              <select value={expireMonth} onChange={handleExpMonth}>
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
-                <option value="2026">2026</option>
-                <option value="2027">2027</option>
-                <option value="2028">2028</option>
-                <option value="2029">2029</option>
-              </select>
-            </div>
-            <div className="input-container">
-              <h4>CVV</h4>
-              <input type="password" placeholder="CVV" required />
-            </div>
-          </div>
-
-          <button>{`Submit ${cardType} payment`}</button>
-        </form>
+      <div className="payments-title">
+        <span className="payments-title-content">Your payment methods</span>
       </div>
+      <div className="payment-list">{rows}</div>
     </div>
   );
 }

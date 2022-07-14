@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
+import "./Orders.css";
 import axios from "axios";
-import AuthedMerchantNavBar from "../../components/NavBar/AuthedMerchantNavBar";
-import "./Homepage.css";
+import AuthedNavBar from "../../components/NavBar/AuthedNavBar";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 // import { set } from "mockdate";
 
@@ -24,15 +24,12 @@ export default function Checkout() {
   let date = new Date();
   useEffect(() => {
     setCount(count + 1);
-    if (
-      window.localStorage.getItem("token") === null ||
-      window.localStorage.getItem("type") !== "restaurant"
-    ) {
-      navigate("/");
+    if (window.localStorage.getItem("token") === null) {
+      navigate("/user/signin");
     }
     axios
       .get(
-        `http://127.0.0.1:8080/api/order/getbyrestaurant/inprogress/${window.localStorage.getItem(
+        `http://127.0.0.1:8080/api/order/getbyuser/inprogress/${window.localStorage.getItem(
           "id"
         )}`
       )
@@ -47,15 +44,35 @@ export default function Checkout() {
     // console.log(state);
   }, [value]);
   const onChange = ({ target }) => setValue(target.value);
+
+  const handleProgressing = (e) => {
+    axios
+      .get(
+        `http://127.0.0.1:8080/api/order/getbyuser/inprogress/${window.localStorage.getItem(
+          "id"
+        )}`
+      )
+      .then((res) => {
+        // console.log(res.data);
+        setProgressing(res.data);
+      })
+      .catch((err) => {
+        // console.log("error: " + localStorage.getItem("id"));
+        // console.log(err);
+      });
+
+    setSelect(1);
+  };
   var pr = [];
   if (progressing !== undefined) {
     // setCard(0);
     for (let i = 0; i < progressing.length; i++) {
       pr.push(
         <div
-          className="orders-content"
-          // onMouseEnter={() => setMouse(i)}
-          // onMouseLeave={() => setMouse("")}
+          className={mouse === i ? "orders-content-onmouse" : "orders-content"}
+          onMouseEnter={() => setMouse(i)}
+          onMouseLeave={() => setMouse("")}
+          onClick={() => navigate(`/orderdetails/${progressing[i].id}`)}
         >
           <div className="orders-content-subblock">
             <span className="orders-content-title">DELIVER TO</span>
@@ -82,41 +99,9 @@ export default function Checkout() {
             </span>
           </div>
           <div className="orders-content-subblock-2">
-            <div className="home-button-block">
-              <div
-                className={mouse === i ? "home-button-onmouse" : "home-button"}
-                onMouseEnter={() => setMouse(i)}
-                onMouseLeave={() => setMouse("")}
-                onClick={() => {
-                  axios
-                    .get(
-                      `http://127.0.0.1:8080/api/order/startdelivery/${progressing[i].id}`
-                    )
-                    .then((res) => {
-                      // console.log(res.data);
-                      window.location.reload(false);
-                    })
-                    .catch((err) => {
-                      // console.log("error: " + localStorage.getItem("id"));
-                      // console.log(err);
-                    });
-                }}
-              >
-                <span className="home-button-title">start delivery</span>
-              </div>
-              <div
-                className={
-                  mouse === i + progressing.length
-                    ? "home-button-onmouse"
-                    : "home-button"
-                }
-                onMouseEnter={() => setMouse(i + progressing.length)}
-                onMouseLeave={() => setMouse("")}
-                onClick={() => navigate(`/orderdetails/${progressing[i].id}`)}
-              >
-                <span className="home-button-title">show details</span>
-              </div>
-            </div>
+            <span className="orders-content-title">
+              {`${progressing[i].status}`}
+            </span>
             <span className="orders-content-content">
               {`ORDER # ${progressing[i].ordernumber}`}
             </span>
@@ -133,22 +118,21 @@ export default function Checkout() {
   }
 
   const handleDelivering = (e) => {
-    if (delivering === undefined) {
-      axios
-        .get(
-          `http://127.0.0.1:8080/api/order/getbyrestaurant/delivering/${window.localStorage.getItem(
-            "id"
-          )}`
-        )
-        .then((res) => {
-          // console.log(res.data);
-          setDelivering(res.data);
-        })
-        .catch((err) => {
-          // console.log("error: " + localStorage.getItem("id"));
-          // console.log(err);
-        });
-    }
+    axios
+      .get(
+        `http://127.0.0.1:8080/api/order/getbyuser/delivering/${window.localStorage.getItem(
+          "id"
+        )}`
+      )
+      .then((res) => {
+        // console.log(res.data);
+        setDelivering(res.data);
+      })
+      .catch((err) => {
+        // console.log("error: " + localStorage.getItem("id"));
+        // console.log(err);
+      });
+
     setSelect(2);
   };
   var dr = [];
@@ -157,9 +141,10 @@ export default function Checkout() {
     for (let i = 0; i < delivering.length; i++) {
       dr.push(
         <div
-          className="orders-content"
-          // onMouseEnter={() => setMouse(i)}
-          // onMouseLeave={() => setMouse("")}
+          className={mouse === i ? "orders-content-onmouse" : "orders-content"}
+          onMouseEnter={() => setMouse(i)}
+          onMouseLeave={() => setMouse("")}
+          onClick={() => navigate(`/orderdetails/${delivering[i].id}`)}
         >
           <div className="orders-content-subblock">
             <span className="orders-content-title">DELIVER TO</span>
@@ -184,41 +169,9 @@ export default function Checkout() {
             </span>
           </div>
           <div className="orders-content-subblock-2">
-            <div className="home-button-block">
-              <div
-                className={mouse === i ? "home-button-onmouse" : "home-button"}
-                onMouseEnter={() => setMouse(i)}
-                onMouseLeave={() => setMouse("")}
-                onClick={() => {
-                  axios
-                    .get(
-                      `http://127.0.0.1:8080/api/order/orderdelivered/${delivering[i].id}`
-                    )
-                    .then((res) => {
-                      // console.log(res.data);
-                      window.location.reload(false);
-                    })
-                    .catch((err) => {
-                      // console.log("error: " + localStorage.getItem("id"));
-                      // console.log(err);
-                    });
-                }}
-              >
-                <span className="home-button-title">delivered</span>
-              </div>
-              <div
-                className={
-                  mouse === i + delivering.length
-                    ? "home-button-onmouse"
-                    : "home-button"
-                }
-                onMouseEnter={() => setMouse(i + delivering.length)}
-                onMouseLeave={() => setMouse("")}
-                onClick={() => navigate(`/orderdetails/${delivering[i].id}`)}
-              >
-                <span className="home-button-title">show details</span>
-              </div>
-            </div>
+            <span className="orders-content-title">
+              {`${delivering[i].status}`}
+            </span>
             <span className="orders-content-content">
               {`ORDER # ${delivering[i].ordernumber}`}
             </span>
@@ -234,22 +187,21 @@ export default function Checkout() {
     }
   }
   const handleDelivered = (e) => {
-    if (delivered === undefined) {
-      axios
-        .get(
-          `http://127.0.0.1:8080/api/order/getbyrestaurant/delivered/${window.localStorage.getItem(
-            "id"
-          )}`
-        )
-        .then((res) => {
-          // console.log(res.data);
-          setDelivered(res.data);
-        })
-        .catch((err) => {
-          // console.log("error: " + localStorage.getItem("id"));
-          // console.log(err);
-        });
-    }
+    axios
+      .get(
+        `http://127.0.0.1:8080/api/order/getbyuser/delivered/${window.localStorage.getItem(
+          "id"
+        )}`
+      )
+      .then((res) => {
+        // console.log(res.data);
+        setDelivered(res.data);
+      })
+      .catch((err) => {
+        // console.log("error: " + localStorage.getItem("id"));
+        // console.log(err);
+      });
+
     setSelect(3);
   };
   var dr2 = [];
@@ -309,7 +261,7 @@ export default function Checkout() {
 
   return (
     <div className="home">
-      <AuthedMerchantNavBar />
+      <AuthedNavBar />
       <div
         style={{
           width: "100%",

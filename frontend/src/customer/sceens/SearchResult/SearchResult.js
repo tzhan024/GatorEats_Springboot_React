@@ -15,17 +15,31 @@ export default function RestaurantResults() {
   var rows = [];
   useEffect(() => {
     setCount(count + 1);
-    axios
-      .get(`http://127.0.0.1:8080/api/restaurant/search/${params.address}`)
-      .then((res) => {
-        console.log(params.address);
-        console.log(res.data);
-        const temp = res.data;
-        setResData(temp);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (params.address) {
+      axios
+        .get(`http://127.0.0.1:8080/api/restaurant/search/${params.address}`)
+        .then((res) => {
+          console.log(params.address);
+          console.log(res.data);
+          const temp = res.data;
+          setResData(temp);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .get(`http://127.0.0.1:8080/api/restaurant/all`)
+        .then((res) => {
+          console.log(params.address);
+          console.log(res.data);
+          const temp = res.data;
+          setResData(temp);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [value]);
   const onChange = ({ target }) => setValue(target.value);
   console.log(1);
@@ -186,7 +200,9 @@ export default function RestaurantResults() {
       ></div>
       <div className="restaurant-results-title">
         <span className="restaurant-results-title-content">
-          Result for "{params.address}"
+          {params.address
+            ? `Result for "${params.address}"`
+            : "All restaurants"}
         </span>
       </div>
       {/* <div className="restaurant-results-block">

@@ -28,6 +28,7 @@ export default function MerchantSignUp() {
 
   const ReactS3Client = new S3(s3Config);
 
+  const navigate = useNavigate();
   useEffect(() => {
     setCount(count + 1);
     if (window.localStorage.getItem("token") !== null) {
@@ -99,7 +100,6 @@ export default function MerchantSignUp() {
     }
   };
 
-  const navigate = useNavigate();
   return (
     <div>
       <AuthedMerchantNavBar />

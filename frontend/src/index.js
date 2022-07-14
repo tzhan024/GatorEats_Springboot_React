@@ -11,9 +11,11 @@ import Signup from "./customer/sceens/Auth/SignUp";
 import RestaurantResults from "./customer/sceens/SearchResult/SearchResult";
 import RestaurantMenu from "./customer/components/Restaurant/Menu";
 import Home from "./customer/sceens/Homepage/Home";
-import Orders from "./customer/sceens/Orders";
+import Orders from "./customer/sceens//Orders/Orders";
 import Profile from "./customer/sceens/Profile/Profile";
 import Cart from "./customer/sceens/ShoppingCart/Cart";
+import Checkout from "./customer/sceens/Checkout/Checkout";
+import OrderDetails from "./customer/sceens/OrderDetails/OrderDetails";
 // import reportWebVitals from './reportWebVitals';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Restaurant from "./customer/sceens/Restaurant";
@@ -28,16 +30,18 @@ import EditFood from "./merchant/sceens/AddFood/EditFood";
 import MerchantPayment from "./merchant/sceens/Payment/Payment";
 import MerchantProfile from "./merchant/sceens/Profile/Profile";
 import MerchantOrders from "./merchant/sceens/Orders";
-import Checkout from "./customer/sceens/Checkout/CheckoutForm";
-import Pay from "./customer/sceens/Checkout/Pay";
-import ApplePay from "./customer/components/Checkout/ApplePay";
-import CardForm from "./customer/components/Checkout/Card";
-import GooglePay from "./customer/components/Checkout/GooglePay";
-import WeChatPay from "./customer/components/Checkout/WechatPay";
-import SepaDebitForm from "./customer/components/Checkout/SeptDebit";
-import Alipay from "./customer/components/Checkout/Alipay";
-import Sofort from "./customer/components/Checkout/Sofort";
-import Bancontact from "./customer/components/Checkout/Bancontact";
+// import Checkout from "./customer/sceens/Checkout/CheckoutForm";
+// import Pay from "./customer/sceens/Checkout/Pay";
+// import ApplePay from "./customer/components/Checkout/ApplePay";
+// import CardForm from "./customer/components/Checkout/Card";
+// import GooglePay from "./customer/components/Checkout/GooglePay";
+// import WeChatPay from "./customer/components/Checkout/WechatPay";
+// import SepaDebitForm from "./customer/components/Checkout/SeptDebit";
+// import Alipay from "./customer/components/Checkout/Alipay";
+// import Sofort from "./customer/components/Checkout/Sofort";
+// import Bancontact from "./customer/components/Checkout/Bancontact";
+import AddPayment from "./customer/sceens/AddPayment/AddPayment";
+// import EditPayment from "./customer/sceens/AddPayment/EditPayment";
 
 // var cors = require("cors");
 
@@ -54,18 +58,21 @@ ReactDOM.render(
         <Route path="/user/profile/" element={<Profile />}></Route>
         <Route path="/user/payment/" element={<Payment />}></Route>
         <Route path="/user/cart/" element={<Cart />}></Route>
-        <Route path="/user/checkout/" element={<Checkout />}></Route>
+        {/* <Route path="/user/checkout/" element={<Checkout />}></Route>
         <Route path="/user/checkout/card" element={<CardForm />}></Route>
-        <Route path="/user/checkout/" element={<Checkout />}></Route>
-        <Route
+        <Route path="/user/checkout/" element={<Checkout />}></Route> */}
+        <Route path="/user/addpayment/" element={<AddPayment />}></Route>
+        <Route path="/user/editpayment/:id" element={<AddPayment />}></Route>
+        <Route path="/user/checkout/:id" element={<Checkout />}></Route>
+        {/* <Route
           path="/user/checkout/pay"
           element={
             <Pay
               stripePromise={loadStripe("pk_test_TYooMQauvdEDq54NiTphI7jx")}
             />
           }
-        />
-        <Route path="/user/checkout/card" element={<CardForm />}></Route>
+        /> */}
+        {/* <Route path="/user/checkout/card" element={<CardForm />}></Route>
         <Route path="/user/checkout/apple_pay" element={<ApplePay />}></Route>
         <Route path="/user/checkout/google_pay" element={<GooglePay />}></Route>
         <Route path="/user/checkout/wechat_pay" element={<WeChatPay />}></Route>
@@ -78,10 +85,10 @@ ReactDOM.render(
         <Route
           path="/user/checkout/bancontact"
           element={<Bancontact />}
-        ></Route>
+        ></Route> */}
 
         <Route path="/search/:address" element={<RestaurantResults />}></Route>
-        <Route path="/restaurant/" element={<Restaurant />}></Route>
+        <Route path="/restaurant/" element={<RestaurantResults />}></Route>
         <Route path="/restaurant/:id" element={<RestaurantMenu />}></Route>
         <Route path="/user/shoppingcart/:restaurant" element={<Cart />}></Route>
 
@@ -94,6 +101,7 @@ ReactDOM.render(
         <Route path="/merchant/menu/" element={<MerchantMenu />}></Route>
         <Route path="/merchant/addfood/" element={<AddFood />}></Route>
         <Route path="/merchant/editfood/:id" element={<EditFood />}></Route>
+        <Route path="/orderdetails/:id" element={<OrderDetails />}></Route>
 
         <Route
           path="/restaurant_results/:address"
@@ -115,7 +123,7 @@ ReactDOM.render(
           path="*"
           element={
             <div>
-              <span>404</span>
+              <span>Page does not exist</span>
             </div>
           }
         ></Route>

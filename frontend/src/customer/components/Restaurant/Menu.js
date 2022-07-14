@@ -106,6 +106,9 @@ export default function RestaurantMenu(props) {
                       })
                       .then((res) => {
                         console.log(res);
+                        console.log(state.id);
+                        console.log(window.localStorage.getItem("id"));
+                        console.log(data[i].id);
                         alert(`${data[i].name} has been added to cart`);
                       })
                       .catch((err) => {

@@ -28,6 +28,7 @@ export default function MerchantSignUp() {
   window.Buffer = window.Buffer || require("buffer").Buffer;
 
   const ReactS3Client = new S3(s3Config);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setCount(count + 1);
@@ -149,7 +150,6 @@ export default function MerchantSignUp() {
 
   const fileUpload = useRef(null);
 
-  const navigate = useNavigate();
   return (
     <div>
       <AuthedMerchantNavBar />

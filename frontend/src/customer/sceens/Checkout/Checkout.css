@@ -1,0 +1,282 @@
+.checkout {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  flex-direction: column;
+  /* background-color: red; */
+}
+.checkout-content {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 80%;
+  /* height: 30px; */
+  /* background-color: blue; */
+}
+.checkout-content-left-onselect {
+  display: flex;
+  /* align-items: flex-start;
+    justify-content: center; */
+  flex-direction: column;
+  width: 40%;
+  height: 250px;
+  border-radius: 20px;
+  border-style: solid;
+  border-color: rgb(0, 0, 0, 20%);
+  border-width: 3px;
+  background-color: rgb(0, 0, 0, 4%);
+  margin-right: 20px;
+}
+.checkout-content-right-onselect {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 40%;
+  height: 250px;
+  border-radius: 20px;
+  border-style: solid;
+  border-color: rgb(0, 0, 0, 20%);
+  border-width: 3px;
+  background-color: rgb(0, 0, 0, 4%);
+  margin-left: 20px;
+}
+.checkout-content-left {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  width: 40%;
+  height: 250px;
+  border-radius: 20px;
+  border-style: solid;
+  border-color: rgb(0, 0, 0, 0%);
+  border-width: 3px;
+  background-color: rgb(0, 0, 0, 5%);
+  margin-right: 20px;
+}
+.checkout-content-right {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  width: 40%;
+  height: 250px;
+  border-radius: 20px;
+  border-style: solid;
+  border-color: rgb(0, 0, 0, 0%);
+  border-width: 3px;
+  background-color: rgb(0, 0, 0, 5%);
+  margin-left: 20px;
+}
+.checkout-content-left-onmouse {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  width: 40%;
+  height: 250px;
+  border-radius: 20px;
+  border-style: solid;
+  border-color: rgb(0, 0, 0, 0%);
+  border-width: 3px;
+  background-color: rgb(0, 0, 0, 20%);
+  margin-right: 20px;
+}
+.checkout-content-right-onmouse {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  width: 40%;
+  height: 250px;
+  border-radius: 20px;
+  border-style: solid;
+  border-color: rgb(0, 0, 0, 0%);
+  border-width: 3px;
+  background-color: rgb(0, 0, 0, 20%);
+  margin-left: 20px;
+}
+.checkout-content-payments {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: flex-start;
+  width: 69%;
+  border-radius: 20px;
+  background-color: rgb(0, 0, 0, 2%);
+  /* height: 30px; */
+  /* background-color: blue; */
+  margin-bottom: 10px;
+}
+.checkout-content-payments-details {
+  display: flex;
+  flex-direction: row;
+  /* margin-top: 10px; */
+  align-items: center;
+  justify-content: flex-start;
+  width: 80%;
+  border-radius: 20px;
+  background-color: rgb(0, 0, 0, 5%);
+  height: 50px;
+  /* background-color: blue; */
+  margin-bottom: 20px;
+}
+.checkout-content-payments-details-name {
+  margin-left: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(0, 0, 0, 75%);
+  width: 180px;
+}
+.checkout-content-payments-details-number {
+  /* margin-left: 20px; */
+  font-size: 20px;
+  /* font-weight: bold; */
+  color: rgb(0, 0, 0, 75%);
+  width: 200px;
+  /* background-color: aliceblue; */
+}
+.checkout-button-select {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  border-radius: 20px;
+  border-width: 2px;
+  border-style: solid;
+  background-color: rgb(0, 0, 0, 100%);
+  height: 35px;
+  font-size: 20px;
+  color: white;
+}
+.checkout-button-select-onmouse {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  border-radius: 20px;
+  border-width: 2px;
+  border-style: solid;
+  background-color: rgb(0, 0, 0, 75%);
+  height: 35px;
+  font-size: 20px;
+  color: white;
+}
+.checkout-button-select-onselected {
+  display: flex;
+  flex-direction: row;
+  /* margin-top: 20px; */
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  border-radius: 20px;
+  border-width: 2px;
+  border-style: solid;
+  /* border-color: rgb(196, 44, 44); */
+  background-color: white;
+  height: 35px;
+  font-size: 20px;
+  /* font-weight: bold; */
+  color: rgb(0, 0, 0, 100%);
+  border-color: rgb(0, 0, 0, 100%);
+  /* background-color: blue; */
+  /* margin-bottom: 20px; */
+}
+
+.checkout-content-price {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: flex-end;
+  width: 69%;
+  height: 90px;
+  background-color: rgb(0, 0, 0, 5%);
+  margin-bottom: 30px;
+}
+.checkout-address-name {
+  /* margin-top: 10px; */
+  margin-left: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(0, 0, 0, 75%);
+}
+.checkout-address-address {
+  margin-top: 30px;
+  margin-left: 20px;
+  font-size: 20px;
+  /* font-weight: bold; */
+  color: rgb(0, 0, 0, 75%);
+}
+.checkout-address-short {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  /* background-color: red; */
+
+  width: 100%;
+}
+.checkout-address-input-block {
+  /* margin-top: 10px; */
+  height: 40px;
+  width: 95%;
+  background-color: rgb(0, 0, 0, 5%);
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(0, 0, 0, 0%);
+}
+.checkout-address-input-block-ontyping {
+  /* margin-top: 10px; */
+  height: 40px;
+  width: 95%;
+  background-color: rgb(0, 0, 0, 5%);
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(0, 0, 0, 100%);
+}
+.checkout-address-short-title {
+  margin-top: 10px;
+  margin-left: 5px;
+  width: 90%;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  /* background-color: red; */
+}
+.checkout-short-input {
+  outline: none;
+  border: none;
+  margin-left: 10px;
+  width: 85%;
+  height: 38px;
+  font-size: 16px;
+  font-weight: 400;
+  color: black;
+  background-color: rgb(0, 0, 0, 0%);
+}
+.checkout-short-block {
+  display: flex;
+  width: 30%;
+  /* background-color: red; */
+  flex-direction: column;
+  /* background-color: blue; */
+}
+
+.checkout-long-block {
+  display: flex;
+  width: 90%;
+  /* background-color: red; */
+  flex-direction: column;
+  /* background-color: blue; */
+}

@@ -33,9 +33,9 @@ export default function AuthedNavBar() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="/restaurant">Restaurant</Nav.Link>
+            <Nav.Link href="/restaurant">All Restaurant</Nav.Link>
             <Nav.Link href="/user/orders">Orders</Nav.Link>
-            <Nav.Link href="/user/cart">Shopping Cart</Nav.Link>
+            {/* <Nav.Link href="/user/cart">Shopping Cart</Nav.Link> */}
             <NavDropdown title="Account" id="basic-nav-dropdown">
               <NavDropdown.Item href="/user/profile">Profile</NavDropdown.Item>
               <NavDropdown.Divider />

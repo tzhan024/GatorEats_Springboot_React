@@ -65,12 +65,13 @@ public class CartController {
         Integer restaurant = Integer.parseInt(info.get("restaurant"));
         Integer user = Integer.parseInt(info.get("user"));
         Integer food = Integer.parseInt(info.get("food"));
-        List<Cart> lc = cr.findByFood(food);
+        List<Cart> lc = cr.findByFood(food, user, restaurant);
         if(!lc.isEmpty())
         {
             Cart c = lc.get(0);
             c.setQty(c.getQty() + 1);
             cr.save(c);
+            System.out.println(c.toString());
         }
         else
         {
@@ -80,6 +81,7 @@ public class CartController {
             c.setFood(food);
             c.setQty(1);
             cr.save(c);
+            System.out.println(c.toString());
         }
 
     }
